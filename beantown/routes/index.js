@@ -51,11 +51,13 @@ function get_insights(params) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  var loading = false;
   res.render('index', { title: 'Express', json: my_insights});
 });
 
 router.post('/profile', function(req, res, next) {
   console.log(req.body);
+  loading = true;
   var Twit = require('twit');
   var T = new Twit({
     consumer_key: 'pY2FCyJlHkbfZh5k7zzTAl957',
@@ -72,7 +74,7 @@ router.post('/profile', function(req, res, next) {
     params.content_items = data.map(toContentItem);
     get_insights(params);
   });
-
+  loading = false;
   res.render('profile', { title: req.body.username, json: my_insights});
 });
 
