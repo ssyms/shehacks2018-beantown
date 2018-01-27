@@ -67,8 +67,7 @@ function get_insights(params) {
       "password": "i0mSXScBcdph"
     });
 
-    personality_insights.profile(
-      params,
+    personality_insights.profile(params,
       function(err, response) {
         if (err) {
           console.log('error:', err);
@@ -81,7 +80,11 @@ function get_insights(params) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var insights = get_insights(defaultParameters);
+  res.render('index', { title: 'Express', json: my_insights});
+});
+
+router.post('/profile', function(req, res, next) {
+  console.log(req.body);
 
   var Twit = require('twit');
   var T = new Twit({
@@ -91,7 +94,7 @@ router.get('/', function(req, res, next) {
     access_token_secret: 'i0JA19er0lYZWZkerCarEF7WGotkunFHdBKUkt7axvsXy'
   })
 
-  var options = { screen_name: 'billmaher',
+  var options = { screen_name: req.body.username,
                   count: 600 };
 
   T.get('statuses/user_timeline', options , function(err, data) {
@@ -99,7 +102,8 @@ router.get('/', function(req, res, next) {
     params.content_items = data.map(toContentItem);
     get_insights(params);
   });
-  res.render('index', { title: 'Express', json: my_insights});
+  
+  res.render('profile', { title: req.body.username, json: my_insights});
 });
 
 module.exports = router;
