@@ -1,6 +1,13 @@
 extends layout
 
 block content
+  script(src='http://code.jquery.com/jquery-1.9.1.js')
+  script(src='https://code.highcharts.com/highcharts.js')
+  script(type='text/javascript', src='http://sigmajs.org/js/sigma.min.js')
+  script(src='/javascripts/data-vis.js')
+  script(type="text/javascript").
+    var data = !{json}
   h1= title
   p Welcome to #{title}
-  p #{json}
+  #sig.sigma
+  #container(style='width:100%; height:400px;')
