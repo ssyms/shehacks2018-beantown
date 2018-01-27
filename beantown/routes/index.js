@@ -68,11 +68,7 @@ function get_insights(params) {
     });
 
     personality_insights.profile(
-      {
-        content: params.textToAnalyze,
-        content_type: 'text/plain',
-        consumption_preferences: true
-      },
+      params,
       function(err, response) {
         if (err) {
           console.log('error:', err);
@@ -95,7 +91,7 @@ router.get('/', function(req, res, next) {
     access_token_secret: 'i0JA19er0lYZWZkerCarEF7WGotkunFHdBKUkt7axvsXy'
   })
 
-  var options = { screen_name: 'billnye',
+  var options = { screen_name: 'billmaher',
                   count: 600 };
 
   T.get('statuses/user_timeline', options , function(err, data) {
