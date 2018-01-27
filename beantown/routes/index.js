@@ -39,26 +39,35 @@ function get_insights(params) {
   var use_unauthenticated =  params.use_unauthenticated || false ;
 
   const personality_insights = new PersonalityInsightsV3({
-      'username': params.username,
-      'password': params.password,
       'version_date': '2016-05-20',
-      'url' : url,
-      'use_unauthenticated': use_unauthenticated
+      "url": "https://gateway.watsonplatform.net/personality-insights/api",
+      "username": "4966fd78-48c9-4a5d-a258-d374138fc5dd",
+      "password": "i0mSXScBcdph"
     });
 
-    personality_insights.profile({'text': params.textToAnalyze}, function(err, res) {
-      if (err)
-        reject(err);
-      else
-        return res;
-
-    });
+    personality_insights.profile(
+      {
+        content: params.textToAnalyze,
+        content_type: 'text/plain',
+        consumption_preferences: true
+      },
+      function(err, response) {
+        if (err) {
+          console.log('error:', err);
+          return 'error!';
+        } else {
+          console.log(JSON.stringify(response, null, 2));
+          return JSON.stringify(response, null, 2);
+        }
+      }
+    );
 }
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var insights = get_insights(defaultParameters);
-  res.render('index', { title: insights});
+  console.log(insights);
+  res.render('index', { title: 'Express', json: insights});
 });
 
 module.exports = router;
