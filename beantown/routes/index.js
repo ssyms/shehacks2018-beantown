@@ -29,6 +29,8 @@ const defaultParameters = {
   'use_unauthenticated' : true
 }
 
+var my_insights = '';
+
 function get_insights(params) {
   var res = {};
 
@@ -54,10 +56,8 @@ function get_insights(params) {
       function(err, response) {
         if (err) {
           console.log('error:', err);
-          return 'error!';
         } else {
-          console.log(JSON.stringify(response, null, 2));
-          return JSON.stringify(response, null, 2);
+          my_insights = JSON.stringify(response, null, 2);
         }
       }
     );
@@ -66,8 +66,8 @@ function get_insights(params) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var insights = get_insights(defaultParameters);
-  console.log(insights);
-  res.render('index', { title: 'Express', json: insights});
+  console.log(my_insights);
+  res.render('index', { title: 'Express', json: my_insights});
 });
 
 module.exports = router;
