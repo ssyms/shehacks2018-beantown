@@ -1,5 +1,5 @@
-var width = 960,
-    height = 500,
+var width = 1250,
+    height = 800,
     root;
 
 var force = d3.layout.force()
@@ -9,7 +9,7 @@ var force = d3.layout.force()
     .size([width, height])
     .on("tick", tick);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#graph-container").append("svg")
     .attr("width", width)
     .attr("height", height);
 
@@ -42,15 +42,6 @@ function flatten_data(data) {
   }
   return graph;
 }
-
-d3.json("graph.json", function(error, json) {
-  if (error) throw error;
-  var personality_traits = data['personality'];
-  console.log(json);
-  root = flatten_data(data);
-  console.log(root);
-  update();
-});
 
 function update() {
   var nodes = flatten(root),
@@ -135,4 +126,13 @@ function flatten(root) {
 
 $( document ).ready(function() {
     console.log( "ready!" );
+
+    d3.json("graph.json", function(error, json) {
+      if (error) throw error;
+      var personality_traits = json['personality']; //data['personality'];
+      console.log(json);
+      root = flatten_data(data);
+      console.log(root);
+      update();
+    });
 });

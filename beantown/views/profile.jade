@@ -4,10 +4,10 @@ block content
   script(src='http://code.jquery.com/jquery-1.9.1.js')
   script(src='https://d3js.org/d3.v3.min.js')
   script(type='text/javascript', src='/javascripts/sigma.min.js')
-  script(src='/javascripts/data-vis.js')
   script(type="text/javascript").
     var data = !{json}
   h1= title
   p Welcome to #{title}
   #graph-container
   #container(style='width:100%; height:400px;')
+  script(src='/javascripts/data-vis.js')
