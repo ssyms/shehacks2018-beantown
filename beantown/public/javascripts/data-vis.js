@@ -92,9 +92,9 @@ function tick() {
 }
 
 function color(d) {
-  return d._children ? "#3182bd" // collapsed package
-      : d.children ? "#c6dbef" // expanded package
-      : "#fd8d3c"; // leaf node
+  return d._children ? "#96ceb4" // collapsed package
+      : d.children ? "#ffcc5c" // expanded package
+      : "#88d8b0"; // leaf node
 }
 
 // Toggle children on click.
@@ -126,13 +126,63 @@ function flatten(root) {
 
 $( document ).ready(function() {
     console.log( "ready!" );
-
+    var descriptions = {
+      'Openness': {
+        'high': 'A person with a high level of openness to experience in a personality test enjoys trying new things. Jobs such as advertising, research, and other artistic occupations all benefit from high openness.',
+        'low': 'A person who scores low in openness on a career test may excel in jobs that involve routine work and do not require creativity.'
+      },
+      'Conscientiousness': {
+        'high': 'These individuals are dependable, organized, and persevere, which means they will accomplish their professional goals. Research shows that the conscientiousness personality trait relates to job performance across different types of occupations.',
+        'low': 'People who score low on conscientiousness tend to be laid back, less goal-oriented, and less driven by success.'
+      },
+      'Extraversion': {
+        'high': 'Individuals high in extraversion on a career test have a tendency to seek out the company and stimulation of other people. They enjoy engaging with the external world.',
+        'low': 'Introverts get their energy from within themselves. They are self-motivated and at their best when working solo.'
+      },
+      'Agreeableness': {
+        'high': 'Agreeable individuals find it important to get along with others, giving them an advantage for building teams and maintaining harmony on the work floor.',
+        'low': 'People who score low on agreeableness in a personality test often make excellent scientists, critics, or soldiers.'
+      },
+      'Emotional range': {
+        'high': 'A person who has a high level of emotional stability is preferred in most professions because they have more control over their emotions at work.',
+        'low': 'Employees with low emotional stability should avoid high stress work, as they are more likely to be distracted by deadlines and pressure.'
+      },
+    }
     d3.json("graph.json", function(error, json) {
       if (error) throw error;
-      var personality_traits = json['personality']; //data['personality'];
+      var personality_traits = data['personality'];
       console.log(json);
       root = flatten_data(data);
       console.log(root);
       update();
     });
+
+    var personality = data['personality'];
+    var first_trait = personality[0];
+    var second_trait = personality[0];
+    var worst_trait = personality[0];
+    for(var i = 0; i < personality.length; i++) {
+      if(personality[i].percentile > first_trait.percentile) {
+        first_trait = personality[i];
+      } else if (personality[i].percentile > second_trait.percentile) {
+        second_trait = personality[i];
+      }
+
+      if(personality[i].percentile < worst_trait.percentile) {
+        worst_trait = personality[i];
+      }
+
+
+    }
+    $('#myDiv').append("<ul id='newList' class='traitList'></ul>");
+    $("#newList").append("<li>"+descriptions[first_trait.name]["high"]+"</li><br>");
+
+    $("#newList").append("<li>"+descriptions[second_trait.name]["high"]+"</li><br>");
+
+    $("#newList").append("<li>"+descriptions[worst_trait.name]["low"]+"</li><br>");
+    $("#highest").text("Looks like you scored highest on " + first_trait.name);
+    var delay_time = 400;
+    /*$("#my_list ul li").each(function() {
+        $(this).delay(delay_time).animate({"top" : "+=20px"}, "fast");
+    });*/
 });

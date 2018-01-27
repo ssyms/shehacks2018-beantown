@@ -1,16 +1,21 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url("../images/1.jpg");
-  background-size: 100%;
+  background-image: url("../images/geometry2.png");
   background-color: #cccccc;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-attachment: fixed;
 
 }
 
 a {
   color: #00B7FF;
+}
+
+h4 {
+    font-family: 'Roboto';
+    font-size: 18px;
+    text-align: center;
 }
 
 #graph-container {
@@ -38,4 +43,73 @@ line.link {
   fill: none;
   stroke: #9ecae1;
   stroke-width: 1.5px;
+}
+
+.title {
+  font-family: 'Roboto';
+  font-size: 72px;
+  text-align: center;
+  color: #ff6f69;
+}
+
+.center-container {
+  text-align: center;
+  padding-top: 80px;
+}
+
+/* simple */
+ .simple-input {
+    padding-top: 8px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    border: 2px solid #ffcc5c;
+    border-radius: 5px;
+    color: #333;
+    transition: all 0.3s ease-out;
+    height: 30px;
+    width: 300px;
+    font-size: 20px;
+
+}
+.simple-input:hover {
+    border-radius: 5px
+}
+.simple-input:focus {
+    outline: none;
+    border-radius: 5px;
+    border-color: #EBD292;
+}
+
+.highest {
+  font-size: 24px;
+}
+
+.myTraits {
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.traitList {
+  font-family: 'Roboto';
+  font-size: 18px;
+}
+
+.btn {
+  background: #96ceb4;
+  border-radius: 5px;
+  border: 0px;
+  font-family: 'Roboto';
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: .1rem;
+  font-size: 18px;
+  text-decoration: none;
+  height: 43px;
+  margin-left: 25px;
+  width: 125px;
+}
+
+.btn:hover {
+  background: #88d8b0;
+  text-decoration: none;
 }
