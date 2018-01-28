@@ -113,3 +113,29 @@ line.link {
   background: #88d8b0;
   text-decoration: none;
 }
+
+.back {
+  background: #96ceb4;
+  border-radius: 5px;
+  border: 0px;
+  font-family: 'Roboto';
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: .1rem;
+  font-size: 18px;
+  text-decoration: none;
+  height: 43px;
+  margin: auto 0;
+  width: 125px;
+}
+
+.back:hover {
+  background: #88d8b0;
+  text-decoration: none;
+}
+
+.center-me
+{
+     margin: 0 auto;
+     width: 200px;
+}
