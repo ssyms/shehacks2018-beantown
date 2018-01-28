@@ -4,6 +4,9 @@ block content
   script(src='http://code.jquery.com/jquery-1.9.1.js')
   script(src='https://d3js.org/d3.v3.min.js')
   script(type='text/javascript', src='/javascripts/sigma.min.js')
+  script(src='http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js')
+  link(href='http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css', rel='stylesheet', type='text/css')
+  link(href='http://fonts.googleapis.com/css?family=Oxygen:300', rel='stylesheet', type='text/css')
   script(type="text/javascript").
     var data = !{json}
   h4 Hello there, @#{title}! Here's what we learned about you.
@@ -37,6 +40,24 @@ block content
   br
   h4#highest.highest Looks like you scored highest on...
   #myDiv.myTraits
+  br
+  br
+  br
+  h4 What You Look for in Your Work
+  .center-me2
+    .ct-chart
+
+  h4#values.highest Wow! You really value...
+  #val_description.val wow
+  br
+  br
+  h4 Which days are you most active on Twitter?
+  .center-me3
+    .ct-chart-bar
+
+  br
+  h4 Thanks for reading! Have a great day :)
+  br
   form(method='get', action='/')
     .center-me
         button.button.h4.back(type='submit') Start Over

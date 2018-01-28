@@ -137,5 +137,83 @@ line.link {
 .center-me
 {
      margin: 0 auto;
-     width: 200px;
+     width: 125px;
+}
+
+.center-me2
+{
+     margin: 0 auto;
+     width: 400px;
+}
+
+.ct-chart {
+  height: 400px;
+  width: 400px;
+  font-size: 18px;
+  margin: auto 0;
+}
+
+.donutClass0 {
+  stroke: #88d8b0;
+}
+.donutClass1 {
+  stroke: #ffcc5c;
+}
+.donutClass2 {
+  stroke: #ff6f69;
+}
+.donutClass3 {
+  stroke: #00ced1;
+}
+.donutClass4 {
+  stroke: #79ba7f;
+}
+.donutClass5 {
+  stroke: #ffc3a0;
+}
+.donutClass6 {
+  stroke: #fa8072;
+}
+.donutClass7 {
+  stroke: #fa8072;
+}
+
+.ct-label {
+  font-size: 24px;
+}
+
+.center-me3
+{
+     margin: 0 auto;
+     width: 600px;
+}
+
+.ct-chart-bar {
+  height: 300px;
+  width: 600px;
+  font-size: 18px;
+  margin: auto 0;
+}
+
+.val {
+
+      font-family: 'Roboto';
+      font-size: 18px;
+      text-align: center;
+}
+
+.cred {
+    bottom: 0;
+    font-family: 'Roboto';
+    font-size: 12px;
+    text-align: center;
+    color: #555555;
+}
+
+.fa.fa-twitter {
+  color: #5bc0de;
+}
+
+.ct-chart-bar .ct-series.ct-series-a .ct-bar {
+  stroke: #ff6f69;
 }
