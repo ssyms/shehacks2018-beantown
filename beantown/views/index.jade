@@ -3,6 +3,14 @@ block extra-header
   link(rel='stylesheet', href='/stylesheets/index.css')
 
 block content
+  script(src='http://code.jquery.com/jquery-1.9.1.js')
+  script(type="text/javascript").
+    var loading = false;
+    var update_loading = function() {
+      console.log("updating");
+      $("#myLoading").append("<i class='fa fa-refresh fa-spin fa-3x fa-fw'></i>");
+    }
+
   .center-container
     .row.sub-text
       .col-md-12
@@ -13,10 +21,8 @@ block content
         .col-md-12
           span.h4
           input.paragraph.form-control.simple-input(type='text', value='#{user ? user.screen_name : "" }', name='username', placeholder='Your Twitter handle...', required)
-          button.button.h4.btn(type='submit') Find Me!
+          button.button.h4.btn(type='submit', onclick='update_loading()') Find Me!
           br
           br
           br
-          -if (loading)
-            i.fa.fa-refresh.fa-spin.fa-3x.fa-fw.loading(hidden='true')
-              span.sr-only
+          #myLoading
