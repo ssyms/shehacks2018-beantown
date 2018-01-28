@@ -181,8 +181,134 @@ $( document ).ready(function() {
 
     $("#newList").append("<li>"+descriptions[worst_trait.name]["low"]+"</li><br>");
     $("#highest").text("Looks like you scored highest on " + first_trait.name);
-    var delay_time = 400;
-    /*$("#my_list ul li").each(function() {
-        $(this).delay(delay_time).animate({"top" : "+=20px"}, "fast");
-    });*/
+
+    var needs = data['needs'];
+    var my_series = [];
+    var my_labels = [];
+    var max_value = needs[0];
+    for(var i = 0; i < 7; i++) {
+      var cname = "donutClass" + (i % 12);
+      if(max_value.percentile < needs[i].percentile) max_value = needs[i];
+      my_series.push({
+        value: (1000 * needs[i].percentile),
+        className: cname
+      });
+      my_labels.push(needs[i].name);
+    }
+    var chart = new Chartist.Pie('.ct-chart', {
+      series: my_series,
+      labels: my_labels
+    }, {
+      donut: true,
+      showLabel: true
+    });
+
+
+    $("#values").text("You would work best in an environment that values " + max_value.name);
+    val_descrpitions = {
+      'Challenge': 'Make sure you work someplace you find interesting! You work well under pressure.',
+      'Closeness': "You work best when you're surrounded by friends. Get to know the company culture before accepting a job.",
+      'Curiosity': "Curiosity killed the cat, but satisfaction brought it back. You enjoy exploring new things!",
+      'Excitement': "Some workplaces work at a faster pace than others. Make sure the culture is up to your speed.",
+      'Harmony': "You prefer working in a peaceful environment. Be careful of high pressure workpaces.",
+      'Ideal': "Your want a company as idealistic as you! Visiting the office will give you a better sense of the company culture.",
+      'Liberty': "You like having your independence, so find a workplace with a lot of freedom.",
+      'Love': 'You care about others and want them to care about you.',
+      'Practicality': 'You prefer solving practical problems, rather than moonshots.',
+      'Self-expression': "You work best in companies that give you the freedom to be yourself at work. Check out the company handbook before you take a job to get a sense of how restrictive it is.",
+      'Stability': "You prefer working in companies that are more well-established. Startups might not be for you.",
+      'Structure': "You like it when a company hasa clear chain of command and a solid work flow."
+    }
+    $("#val_description").text(val_descrpitions[max_value.name]);
+
+    chart.on('draw', function(data) {
+      if(data.type === 'slice') {
+        // Get the total path length in order to use for dash array animation
+        var pathLength = data.element._node.getTotalLength();
+
+        // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+        data.element.attr({
+          'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+        });
+
+        // Create animation definition while also assigning an ID to the animation for later sync usage
+        var animationDefinition = {
+          'stroke-dashoffset': {
+            id: 'anim' + data.index,
+            dur: 1000,
+            from: -pathLength + 'px',
+            to:  '0px',
+            easing: Chartist.Svg.Easing.easeOutQuint,
+            // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+            fill: 'freeze'
+          }
+        };
+
+        // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+        if(data.index !== 0) {
+          animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+        }
+
+        // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+        data.element.attr({
+          'stroke-dashoffset': -pathLength + 'px'
+        });
+
+        // We can't use guided mode as the animations need to rely on setting begin manually
+        // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+        data.element.animate(animationDefinition, false);
+      }
+    });
+
+    // For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+    chart.on('created', function() {
+      if(window.__anim21278907124) {
+        clearTimeout(window.__anim21278907124);
+        window.__anim21278907124 = null;
+      }
+      window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
+    });
+
+    var behave = data['behavior'];
+
+    var be_series = [];
+    for(var i = 0; i < behave.length; i++) {
+      if(behave[i].name == 'Sunday') {
+        be_series.push(behave[i].percentage*100)
+      }
+      if(behave[i].name == 'Monday') {
+        be_series.push(behave[i].percentage*100)
+      }
+      if(behave[i].name == 'Tuesday') {
+        be_series.push(behave[i].percentage*100)
+      }
+      if(behave[i].name == 'Wednesday') {
+        be_series.push(behave[i].percentage*100)
+      }
+      if(behave[i].name == 'Thursday') {
+        be_series.push(behave[i].percentage*100)
+      }
+      if(behave[i].name == 'Friday') {
+        be_series.push(behave[i].percentage*100)
+      }
+      if(behave[i].name == 'Saturday') {
+        be_series.push(behave[i].percentage*100)
+      }
+    }
+    var barchart = new Chartist.Bar('.ct-chart-bar', {
+      labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      series: [be_series]
+    }, {
+      stackBars: false
+    })
+
+    barchart.on('draw', function(data) {
+      if(data.type === 'bar') {
+        data.element.attr({
+          style: 'stroke-width: 30px'
+        });
+      }
+    });
+
+
 });
